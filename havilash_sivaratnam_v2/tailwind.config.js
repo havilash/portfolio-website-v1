@@ -6,40 +6,31 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
-  darkmode: '',
+  darkMode: 'class',
   theme: {
     fontFamily: {
       'body': ['Poppins'],
     },
     extend: {
       spacing: {
-        'nav-width': '5rem'
+        'nav-width': 'var(--nav-width)'
       },
       colors: {
-        'hue': 'var(--hue-color)',
-        'main': {
+        'hue-color': 'var(--hue-color)',
+        'main-color': {
           '100': 'hsl(var(--hue-color), 92%, 85%)',
           '300': 'hsl(var(--hue-color), 75%, 72%)',
-          '500': 'hsl(var(--hue-color), 70%, 60%)',
+          '500': 'hsl(var(--hue-color), 69%, 61%)',
           '700': 'hsl(var(--hue-color), 57%, 53%)',
           '900': 'hsl(var(--hue-color), 47%, 43%)',
         },
-        'text': {
+        'text-color': {
           '300': 'hsl(var(--hue-color), 8%, 45%)',
           '500': 'hsl(var(--hue-color), 8%, 65%)',
         },
-        'title': 'hsl(var(--hue-color), 8%, 15%)',
-        'body': 'hsl(var(--hue-color), 60%, 99%)',
-        'nav': 'hsl(var(--hue-color), 60%, 99%)',
-      },
-      fontSize: {
-        'big': '2rem',
-        'h1': '1.5rem',
-        'h2': '1.25rem',
-        'h3': '1.125rem',
-        'normal': '.938rem',
-        'small': '.813rem',
-        'smaller': '.75rem',
+        'title-color': 'hsl(var(--hue-color), 8%, 15%)',
+        'body-color': 'hsl(var(--hue-color), 60%, 99%)',
+        'nav-color': 'hsl(var(--hue-color), 60%, 99%)',
       },
     },
   },

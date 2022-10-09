@@ -1,18 +1,71 @@
-import React from 'react'
-import './Nav.css'
+import React, {useState, useRef, useEffect} from 'react'
 import { FaBars, FaTimes, FaHome, FaUser, FaWrench, FaBriefcase, FaFileAlt, FaPhoneAlt, FaGithub, FaLinkedin, FaFacebook, FaMoon, FaSun } from 'react-icons/fa';
 
 export default function Nav() {
-  return (
-    <div>
-        <FaBars className="nav__bars nav__icon" id="nav__bars" />
-        <aside className="aside" id="aside">
-            <nav className="nav">
-                <a href="./index.php" className="nav__logo">H</a>
-                <div className="nav__menu" id="nav__menu">
-                    <ul className="nav__list grid">
+
+    const [theme, setTheme] = useState(null)
+
+    const navBarsRef = useRef(null);
+    const navTimesRef = useRef(null);
+    const asideRef = useRef(null);
+
+    const navMoonRef = useRef(null);
+    const navSunRef = useRef(null);
+
+    function handleNavBarsClick(open){
+        open ? navBarsRef.current.classList.add("hidden") : navBarsRef.current.classList.remove("hidden");
+        open ? navTimesRef.current.classList.remove("hidden") : navTimesRef.current.classList.add("hidden");
+        open ? asideRef.current.classList.add("left-0") : asideRef.current.classList.remove("left-0");
+    }
+
+    useEffect(() => {
+        loadTheme()
+    }, [theme])
+
+    function changeTheme(theme){
+        localStorage.theme = theme;
+        loadTheme()
+        setTheme(theme)
+    }
+
+    function loadTheme(){
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            
+            navMoonRef.current.classList.add("hidden");
+            navSunRef.current.classList.remove("hidden");
+          } else {
+            document.documentElement.classList.remove('dark');
+
+            navMoonRef.current.classList.remove("hidden");
+            navSunRef.current.classList.add("hidden");
+          }
+    }
+
+    return (
+        <div>
+            <aside ref={asideRef} className="aside" id="aside">
+                <i ref={navBarsRef} 
+                className="absolute left-nav-width sm:left-0 m-8 z-[45] 
+                transition-all duration-200">
+                    <FaBars onClick={() => handleNavBarsClick(true)} 
+                    className="nav__bars nav__icon" id="nav__bars" />
+                </i>
+                <i ref={navTimesRef} 
+                className="hidden absolute left-nav-width sm:left-0 m-8 z-[45]
+                transition-all duration-200">
+                    <FaTimes onClick={() => handleNavBarsClick(false)} 
+                    className="nav__times nav__icon" id="nav__times" />
+                </i>
+
+                <nav className="nav 
+                relative w-full h-full border-r-2 border-solid border-neutral-200 bg-white
+                flex flex-col justify-between items-center z-50">
+                    <a href="./index.php" className="nav__logo nav__icon p-4">H</a>
+                    <ul className="nav__list
+                    gap-1">
                         <li className="nav__item">
-                            <a href="./index.php" className="nav__link" title="Home">
+                            <a href="./index.php" className="nav__link nav__icon" title="Home">
                                 <FaHome className="nav__icon" />
                             </a>
                         </li>
@@ -42,18 +95,20 @@ export default function Nav() {
                             </a>
                         </li>
                     </ul>
-                </div>
-                <div className="nav__buttons">
-                    <div className="nav__social">
-                        <a href="#github" className="nav__social__link" target="_blank"><FaGithub className="nav__social__icon" /></a>
-                        <a href="#linkedin" className="nav__social__link" target="_blank"><FaLinkedin className="nav__social__icon" /></a>
-                        <a href="#facebook" className="nav__social__link" target="_blank"><FaFacebook className="nav__social__icon" /></a>
+                    <div className="nav__buttons
+                    p-4 h-auto flex flex-col justify-between gap-6">
+                        <div className="nav__social
+                        h-auto grid gap-1">
+                            <a href="#github" className="nav__social__link" target="_blank"><FaGithub className="nav__social__icon nav__icon" /></a>
+                            <a href="#linkedin" className="nav__social__link" target="_blank"><FaLinkedin className="nav__social__icon nav__icon" /></a>
+                            <a href="#facebook" className="nav__social__link" target="_blank"><FaFacebook className="nav__social__icon nav__icon" /></a>
+                        </div>
+                        <i ref={navMoonRef} className=""> <FaMoon onClick={() => changeTheme('dark')} className="nav__theme-button nav__icon" id="nav__theme-button" /> </i>
+                        <i ref={navSunRef} className="hidden"> <FaSun onClick={() => changeTheme('light')} className="nav__theme-button nav__icon" id="nav__theme-button" /> </i>
                     </div>
-                    <FaMoon className="nav__theme-button nav__icon" id="nav__theme-button" /> {/* <!-- uil-moon / uil-sun --> */}
-                </div>
-            </nav>
-        </aside>
+                </nav>
+            </aside>
 
-    </div>
-  )
+        </div>
+    )
 }

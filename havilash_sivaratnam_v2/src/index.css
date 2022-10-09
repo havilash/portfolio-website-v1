@@ -3,9 +3,27 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --nav-width: 5rem;
+
+    --hue-color: 230;
+
+    --main-color-100: hsl(var(--hue-color), 92%, 85%);
+    --main-color-300: hsl(var(--hue-color), 75%, 72%);
+    --main-color-500: hsl(var(--hue-color), 69%, 61%);
+    --main-color-700: hsl(var(--hue-color), 57%, 53%);
+    --main-color-900: hsl(var(--hue-color), 47%, 43%);
+
+    --text-color-300: hsl(var(--hue-color), 8%, 45%);
+    --text-color-500: hsl(var(--hue-color), 8%, 65%);
+
+    --title-color: hsl(var(--hue-color), 8%, 15%);
+    --body-color: hsl(var(--hue-color), 60%, 99%);
+    --nav-color: hsl(var(--hue-color), 60%, 99%);
+  }
+
   * {
-    @apply box-border p-0 m-0
-    font-body text-normal text-text-500;
+    @apply box-border p-0 m-0;
   }
 
   html {
@@ -14,8 +32,9 @@
 
   body {
     @apply transition-all duration-[0.2s]
-    m-0 md:ml-nav-width h-screen
-    bg-body;
+    m-0 sm:ml-nav-width h-screen
+    bg-body-color dark:bg-red-500
+    font-body text-base text-text-color-500;
   }
 
   h1,
@@ -24,20 +43,74 @@
   h4,
   h5,
   h6 {
-    @apply text-title font-semibold text-normal;
+    @apply text-title-color font-semibold text-base;
   }
 
   h1 {
-    @apply text-h1;
+    @apply text-2xl;
   }
   h2 {
-    @apply text-h2;
+    @apply text-xl;
   }
   h3 {
-    @apply text-h3;
+    @apply text-lg;
   }
 
   p {
-    @apply text-normal font-medium text-text-500;
+    @apply text-base font-medium text-text-color-500;
+  }
+
+  ul {
+    @apply list-none;
+  }
+
+  a {
+    @apply no-underline;
+  }
+
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  aside {
+    @apply fixed w-nav-width h-screen top-0 sm:left-0 z-50
+    transition-all duration-[0.2s];
+  }
+
+  @media (max-width: 640px) {
+    aside {
+      @apply -left-nav-width;
+    }
+  }
+}
+
+@layer components {
+  .section {
+    @apply h-full p-4 my-0 mx-[1%];
+  }
+
+  .container {
+    @apply max-w-3xl mx-6;
+  }
+
+  .button {
+    @apply text-main-color-100 bg-main-color-500 py-5 px-7 rounded-lg hover:bg-main-color-700;
+  }
+
+  .focus {
+    @apply hidden fixed t-0 l-0 w-full h-full bg-black opacity-40 z-40;
+  }
+
+  /* nav */
+  .nav__icon {
+    @apply select-none text-text-color-300 text-2xl font-extrabold cursor-pointer hover:text-text-color-500;
+  }
+
+  .nav__social__icon {
+    @apply text-xl;
+  }
+
+  .nav__item {
+    @apply p-2;
   }
 }
