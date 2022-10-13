@@ -1,7 +1,5 @@
 package com.example.havilash_sivaratnam_backend.person;
 
-import ch.bbcag.backend.todolist.item.Item;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,9 +15,6 @@ public class Person {
     private String username;
 
     private String password;
-
-    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
-    private Set<Item> items = new HashSet<>();
 
     public Person() {
     }
