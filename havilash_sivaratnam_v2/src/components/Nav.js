@@ -46,31 +46,32 @@ export default function Nav() {
         <div>
             <aside ref={asideRef} className="aside" id="aside">
                 <i ref={navBarsRef} 
-                className="absolute left-nav-width sm:left-0 m-8 z-[45] 
-                transition-all duration-200">
+                className="absolute left-nav-width sm:left-0 m-10 z-[45] 
+                transition-all">
                     <FaBars onClick={() => handleNavBarsClick(true)} 
                     className="nav__bars nav__icon" id="nav__bars" />
                 </i>
                 <i ref={navTimesRef} 
-                className="hidden absolute left-nav-width sm:left-0 m-8 z-[45]
-                transition-all duration-200">
-                    <FaTimes onClick={() => handleNavBarsClick(false)} 
+                className="hidden absolute left-nav-width sm:left-0 m-10 z-[45]
+                transition-all">
+                <FaTimes onClick={() => handleNavBarsClick(false)} 
                     className="nav__times nav__icon" id="nav__times" />
                 </i>
 
                 <nav className="nav 
-                relative w-full h-full border-r-2 border-solid border-neutral-200 bg-white
-                flex flex-col justify-between items-center z-50">
-                    <a href="./index.php" className="nav__logo nav__icon p-4">H</a>
+                relative w-full h-full shadow-xl bg-nav-color
+                flex flex-col justify-between items-center z-50
+                transition-all">
+                    <a href="./" className="nav__logo nav__icon p-4">H</a>
                     <ul className="nav__list
                     gap-1">
                         <li className="nav__item">
-                            <a href="./index.php" className="nav__link nav__icon" title="Home">
+                            <a href="./" className="nav__link nav__icon" title="Home">
                                 <FaHome className="nav__icon" />
                             </a>
                         </li>
                         <li className="nav__item">
-                            <a href="./aboutme.php" className="nav__link" title="About Me">
+                            <a href="./aboutme" className="nav__link" title="About Me">
                                 <FaUser className="nav__icon" />
                             </a>
                         </li>

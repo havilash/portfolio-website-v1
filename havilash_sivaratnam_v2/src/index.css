@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  html {
     --nav-width: 5rem;
 
     --hue-color: 230;
@@ -22,6 +22,21 @@
     --nav-color: hsl(var(--hue-color), 60%, 99%);
   }
 
+  html.dark {
+    --main-color-100: hsl(var(--hue-color), 92%, 85%);
+    --main-color-300: hsl(var(--hue-color), 75%, 72%);
+    --main-color-500: hsl(var(--hue-color), 69%, 61%);
+    --main-color-700: hsl(var(--hue-color), 57%, 53%);
+    --main-color-900: hsl(var(--hue-color), 47%, 43%);
+
+    --text-color-300: hsl(var(--hue-color), 8%, 60%);
+    --text-color-500: hsl(var(--hue-color), 8%, 75%);
+
+    --title-color: hsl(var(--hue-color), 8%, 95%);
+    --body-color: hsl(var(--hue-color), 28%, 12%);
+    --nav-color: hsl(var(--hue-color), 28%, 12%);
+  }
+
   * {
     @apply box-border p-0 m-0;
   }
@@ -31,9 +46,9 @@
   }
 
   body {
-    @apply transition-all duration-[0.2s]
+    @apply transition-all
     m-0 sm:ml-nav-width h-screen
-    bg-body-color dark:bg-red-500
+    bg-body-color
     font-body text-base text-text-color-500;
   }
 
@@ -74,7 +89,7 @@
 
   aside {
     @apply fixed w-nav-width h-screen top-0 sm:left-0 z-50
-    transition-all duration-[0.2s];
+    transition-all;
   }
 
   @media (max-width: 640px) {
