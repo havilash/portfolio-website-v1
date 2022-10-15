@@ -1,18 +1,11 @@
 const express = require('express')
-const database = require('./database/database');
+const auth = require('./auth');
 
 const port = 3000;
-
 const app = express();
-const conn = database.conn;
 
-app.get('/users', (req, res) => {
-    conn.query("SELECT * FROM users", function(err, result){
-        if (err) throw err;
-        res.send(result);
-    })
-});
+app.use(auth.path, auth.router)
 
 app.listen(port, () => {
-    console.log(`[CONNECTED] server listening to port ${port}`);
+    console.log(`[CONNECTED] Server listening to port ${port}`);
 });
