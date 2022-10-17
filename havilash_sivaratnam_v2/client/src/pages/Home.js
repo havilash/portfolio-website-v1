@@ -1,9 +1,10 @@
 import React from 'react'
+import Login from './Login'
 import Nav from '../components/Nav'
 
 export default function Home() {
   return (
-    <div className='w-full h-screen flex justify-center items-center'>
+    <div className='container flex justify-center items-center'>
         Home
     </div>
   )

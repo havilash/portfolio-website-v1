@@ -12,7 +12,7 @@ USE db_havilash_sivaratnam;
 CREATE TABLE auth(
 	id INT NOT NULL UNIQUE AUTO_INCREMENT,
     refresh_token VARCHAR(255) NOT NULL,
-    valid_until timestamp NOT NULL  -- 7 days
+    valid_until timestamp NOT NULL
 );
 
 -- USERS
@@ -20,6 +20,7 @@ CREATE TABLE auth(
 CREATE TABLE users(
 	id int NOT NULL UNIQUE AUTO_INCREMENT,
 	username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
     
     PRIMARY KEY (id)

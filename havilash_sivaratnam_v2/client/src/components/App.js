@@ -3,18 +3,22 @@ import Nav from './Nav.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from '../pages/Home.js';
 import AboutMe from '../pages/AboutMe.js';
+import SignUp from '../pages/SignUp.js';
+import Login from '../pages/Login.js';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="App h-full w-full">
         <Nav />
-        <div className='content'>
+        <section className='section content flex justify-center items-center'>
           <Routes>
             <Route exact path="/" element={<Home/>} />
+            <Route exact path="/login" element={<Login/>} />
+            <Route exact path="/signup" element={<SignUp/>} />
             <Route exact path="/aboutme" element={<AboutMe/>} />
           </Routes>
-        </div>
+        </section>
       </div>
    </BrowserRouter>
   );

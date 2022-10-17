@@ -62,16 +62,16 @@ export default function Nav() {
                 relative w-full h-full shadow-xl bg-nav-color
                 flex flex-col justify-between items-center z-50
                 transition-all">
-                    <a href="./" className="nav__logo nav__icon p-4">H</a>
+                    <a href="/login" className="nav__logo nav__icon p-4">H</a>
                     <ul className="nav__list
                     gap-1">
                         <li className="nav__item">
-                            <a href="./" className="nav__link nav__icon" title="Home">
+                            <a href="/" className="nav__link nav__icon" title="Home">
                                 <FaHome className="nav__icon" />
                             </a>
                         </li>
                         <li className="nav__item">
-                            <a href="./aboutme" className="nav__link" title="About Me">
+                            <a href="/aboutme" className="nav__link" title="About Me">
                                 <FaUser className="nav__icon" />
                             </a>
                         </li>
