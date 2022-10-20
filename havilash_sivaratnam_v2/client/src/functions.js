@@ -1,6 +1,6 @@
 
 
-function readForm(form) {
+export function readForm(form) {
     var elements = form.elements;
     var obj ={};
     for(var i = 0 ; i < elements.length ; i++){
@@ -9,8 +9,31 @@ function readForm(form) {
             obj[item.name] = item.value;
     }
 
-    return JSON.stringify(obj);
+    return obj;
 }
 
+async function newAccessToken(){
+    const rawResponse = await fetch('http://localhost:5000/api/auth/token', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token: localStorage.refreshToken })
+    });
 
-module.exports.readForm = readForm;
+    return rawResponse.json().accessToken
+}
+
+export async function authFetch(url, options){
+    options.headers.authorization = "Bearer " + localStorage.accessToken;
+    const rawResponse = await fetch(url, options);
+
+    if (rawResponse.status == 403) {
+        localStorage.accessToken = newAccessToken();
+        options.headers.authorization = localStorage.accessToken;
+        const rawResponse = await fetch(url, options);
+    }
+
+    return rawResponse;
+}

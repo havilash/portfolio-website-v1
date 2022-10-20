@@ -1,13 +1,17 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { readForm } from '../functions'
 
 
 export default function SignUp() {
-  const formRef = useRef(null)
+  
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  
+  const formRef = useRef(null);
 
   async function handleSubmit(){
-    const formData = readForm(formRef.current)
-    console.log(JSON.stringify(formData))
+    const formData = readForm(formRef.current);
+
     const rawResponse = await fetch('http://localhost:5000/api/auth/signup', {
       method: 'POST',
       headers: {
@@ -16,18 +20,35 @@ export default function SignUp() {
       },
       body: JSON.stringify(formData)
     });
-    const content = await rawResponse.json();
 
-    console.log(content);
+    const response = await rawResponse.json();
+    
+    if (rawResponse.ok) {  
+      setError(null);
+      setSuccess(response.message);
+      window.location.href = "login";
+    }
+    else {  
+      setSuccess(null);
+      setError(response.message);
+    }
+  }
+
+  function renderMessage() {
+    if (error != null) return <div className='error'>{error}</div>;
+    if (success != null) return <div className='success'>{success}</div>;
   }
 
   return (
-    <div className='container w-full h-screen flex justify-center items-center'>
+    <div className='container flex justify-center items-center'>
 
-      <form ref={formRef} onSubmit={handleSubmit} action='javascript:void(0);' className='min-w-[50%] p-8 shadow-md'>
-        <div>
+      <form ref={formRef} onSubmit={handleSubmit} action='javascript:void(0);' className='min-w-[50%] p-8 shadow-xl'>
+        
+        {renderMessage()}
+        
+        <div className='mt-5'>
           <label htmlFor="username" className="label">Username</label>
-          <input type="text" name="username" id="username" className="input" required />
+          <input type="text" name="username" id="username" className="input" placeholder="username123" required />
         </div>
         <div className="mt-5">
           <label htmlFor="email" className="label">Email</label>
@@ -39,8 +60,8 @@ export default function SignUp() {
         </div>
         <div className="mt-5 flex items-baseline justify-between">
           <input type='submit' value='Sign Up'
-          className="cursor-pointer px-6 py-2 mt-2 text-white bg-blue-600 rounded-lg hover:bg-blue-900" />
-          <a href="/login" className="text-sm text-blue-600 hover:underline">Log in</a>
+          className="cursor-pointer px-6 py-2 mt-2 text-white bg-main-color-500 rounded-lg hover:bg-main-color-900" />
+          <a href="/login" className="text-sm text-main-color-500 hover:underline">Log in</a>
         </div>
       </form>
 

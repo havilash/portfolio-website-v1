@@ -18,6 +18,7 @@ module.exports = {
       colors: {
         'hue-color': 'var(--hue-color)',
         'main-color': {
+          '50': 'var(--main-color-50)',
           '100': 'var(--main-color-100)',
           '300': 'var(--main-color-300)',
           '500': 'var(--main-color-500)',
@@ -27,6 +28,7 @@ module.exports = {
         'text-color': {
           '300': 'var(--text-color-300)',
           '500': 'var(--text-color-500)',
+          '700': 'var(--text-color-700)',
         },
         'title-color': 'var(--title-color)',
         'body-color': 'var(--body-color)',

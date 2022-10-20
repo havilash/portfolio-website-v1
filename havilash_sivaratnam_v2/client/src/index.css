@@ -8,6 +8,7 @@
 
     --hue-color: 230;
 
+    --main-color-50: hsl(var(--hue-color), 92%, 95%);
     --main-color-100: hsl(var(--hue-color), 92%, 85%);
     --main-color-300: hsl(var(--hue-color), 75%, 72%);
     --main-color-500: hsl(var(--hue-color), 69%, 61%);
@@ -16,6 +17,7 @@
 
     --text-color-300: hsl(var(--hue-color), 8%, 45%);
     --text-color-500: hsl(var(--hue-color), 8%, 65%);
+    --text-color-700: hsl(var(--hue-color), 8%, 75%);
 
     --title-color: hsl(var(--hue-color), 8%, 15%);
     --body-color: hsl(var(--hue-color), 60%, 99%);
@@ -23,14 +25,16 @@
   }
 
   html.dark {
+    --main-color-50: hsl(var(--hue-color), 92%, 95%);
     --main-color-100: hsl(var(--hue-color), 92%, 85%);
     --main-color-300: hsl(var(--hue-color), 75%, 72%);
     --main-color-500: hsl(var(--hue-color), 69%, 61%);
     --main-color-700: hsl(var(--hue-color), 57%, 53%);
     --main-color-900: hsl(var(--hue-color), 47%, 43%);
 
-    --text-color-300: hsl(var(--hue-color), 8%, 60%);
-    --text-color-500: hsl(var(--hue-color), 8%, 75%);
+    --text-color-300: hsl(var(--hue-color), 8%, 65%);
+    --text-color-500: hsl(var(--hue-color), 8%, 80%);
+    --text-color-700: hsl(var(--hue-color), 8%, 90%);
 
     --title-color: hsl(var(--hue-color), 8%, 95%);
     --body-color: hsl(var(--hue-color), 28%, 12%);
@@ -116,10 +120,6 @@
     @apply text-main-color-100 bg-main-color-500 py-5 px-7 rounded-lg hover:bg-main-color-700;
   }
 
-  .focus {
-    @apply hidden fixed t-0 l-0 w-full h-full bg-black opacity-40 z-40;
-  }
-
   /* nav */
   .nav__icon {
     @apply select-none text-text-color-300 text-2xl font-extrabold cursor-pointer hover:text-text-color-500;
@@ -135,15 +135,28 @@
 
   /* login / signup */
 
+  .error,
+  .success {
+    @apply border border-solid py-3 px-2
+    bg-[10px_center] rounded-sm font-medium text-sm;
+  }
+
+  .error {
+    @apply text-red-600 bg-red-200 border-red-600;
+  }
+
+  .success {
+    @apply text-green-600 bg-green-200 border-green-600;
+  }
+
   .label {
     @apply block text-sm font-medium text-slate-700;
   }
 
   .input {
-    @apply px-6 py-2 mt-1 bg-white border shadow-sm border-slate-300 placeholder-slate-400 
-  disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 focus:outline-none
-  focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1
-  invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500
+    @apply px-6 py-2 mt-1 bg-white dark:bg-body-color border shadow-sm border-main-color-100 text-text-color-300 dark:text-text-color-500 placeholder-text-color-700
+    dark:placeholder:text-text-color-300 focus:outline-none focus:border-main-color-500 focus:ring-main-color-500 block w-full rounded-md sm:text-sm
+    focus:ring-1 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500
     disabled:shadow-none;
   }
 }

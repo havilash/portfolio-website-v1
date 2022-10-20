@@ -1,26 +1,27 @@
 import React, {useState, useRef, useEffect} from 'react'
-import { FaBars, FaTimes, FaHome, FaUser, FaWrench, FaBriefcase, FaFileAlt, FaPhoneAlt, FaGithub, FaLinkedin, FaFacebook, FaMoon, FaSun } from 'react-icons/fa';
+import { FaSignInAlt, FaBars, FaTimes, FaHome, FaUser, FaWrench, FaBriefcase, FaFileAlt, FaPhoneAlt, FaGithub, FaLinkedin, FaFacebook, FaMoon, FaSun } from 'react-icons/fa';
 
 export default function Nav() {
 
     const [theme, setTheme] = useState(null)
+    const [isNavOpen, setIsNavOpen] = useState(false)
 
-    const navBarsRef = useRef(null);
-    const navTimesRef = useRef(null);
     const asideRef = useRef(null);
 
     const navMoonRef = useRef(null);
     const navSunRef = useRef(null);
 
-    function handleNavBarsClick(open){
-        open ? navBarsRef.current.classList.add("hidden") : navBarsRef.current.classList.remove("hidden");
-        open ? navTimesRef.current.classList.remove("hidden") : navTimesRef.current.classList.add("hidden");
-        open ? asideRef.current.classList.add("left-0") : asideRef.current.classList.remove("left-0");
+    function navOpenClose(){
+        setIsNavOpen(!isNavOpen);
     }
 
     useEffect(() => {
-        loadTheme()
+        loadTheme();
     }, [theme])
+
+    useEffect(() => {
+        isNavOpen ? asideRef.current.classList.add("left-0") : asideRef.current.classList.remove("left-0");
+    }, [isNavOpen])
 
     function changeTheme(theme){
         localStorage.theme = theme;
@@ -42,27 +43,53 @@ export default function Nav() {
           }
     }
 
+    async function handleLogout() {
+        const rawResponse = await fetch('/api/auth/logout', {
+            method: 'DELETE',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: localStorage.refreshToken })
+        });
+
+        if (rawResponse.ok){
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            localStorage.removeItem("user");
+            window.location.href = "/login";
+        }    
+    }
+
+    function renderLogo() {
+        if (localStorage.user == undefined) 
+            return <a href="/login" title="Login" className="nav__logo nav__icon p-3 m-4 text-white button"><FaSignInAlt /></a>;   // <MdOutlineLogin /> 
+        else
+            return <a onClick={handleLogout} href="#logout" title="Logout" className="nav__logo nav__icon p-3 m-4">{JSON.parse(localStorage.user)?.username?.charAt(0).toUpperCase()}</a>
+    }
+
+    function renderOpenCloseIcon() {
+        if (isNavOpen)
+            return <FaTimes onClick={() => navOpenClose()} 
+            className="nav__icon absolute left-nav-width sm:left-0 m-10 z-[45] 
+            transition-all" />
+        else
+            return <FaBars onClick={() => navOpenClose()} 
+            className="nav__icon absolute left-nav-width sm:left-0 m-10 z-[45] 
+            transition-all" />
+    }
+
     return (
         <div>
             <aside ref={asideRef} className="aside" id="aside">
-                <i ref={navBarsRef} 
-                className="absolute left-nav-width sm:left-0 m-10 z-[45] 
-                transition-all">
-                    <FaBars onClick={() => handleNavBarsClick(true)} 
-                    className="nav__bars nav__icon" id="nav__bars" />
-                </i>
-                <i ref={navTimesRef} 
-                className="hidden absolute left-nav-width sm:left-0 m-10 z-[45]
-                transition-all">
-                <FaTimes onClick={() => handleNavBarsClick(false)} 
-                    className="nav__times nav__icon" id="nav__times" />
-                </i>
+
+                {renderOpenCloseIcon()}
 
                 <nav className="nav 
                 relative w-full h-full shadow-xl bg-nav-color
                 flex flex-col justify-between items-center z-50
                 transition-all">
-                    <a href="/login" className="nav__logo nav__icon p-4">H</a>
+                    {renderLogo()}
                     <ul className="nav__list
                     gap-1">
                         <li className="nav__item">
