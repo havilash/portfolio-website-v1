@@ -7,17 +7,13 @@ import SignUp from '../pages/SignUp.js';
 import Login from '../pages/Login.js';
 
 function App() {
-  const foregroundRef = useRef(null);
-
-  useEffect(() => {
-    console.log(foregroundRef)
-  }, [])
+  var foregroundRef = useRef(null);
 
   return (
     <BrowserRouter>
       <div className="App h-full w-full">
-        <div ref={foregroundRef} className='foreground'></div>
-        <Nav foreground={foregroundRef.current}/>
+        <div ref={foregroundRef} className='sm:hidden foreground'></div>
+        <Nav foregroundRef={foregroundRef}/>
         <section className='section content flex justify-center items-center'>
           <Routes>
             <Route exact path="/" element={<Home/>} />
