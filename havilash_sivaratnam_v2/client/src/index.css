@@ -19,7 +19,7 @@
     --text-color-500: hsl(var(--hue-color), 8%, 65%);
     --text-color-700: hsl(var(--hue-color), 8%, 75%);
 
-    --title-color: hsl(var(--hue-color), 8%, 15%);
+    --title-color: hsl(var(--hue-color), 8%, 40%);
     --body-color: hsl(var(--hue-color), 60%, 99%);
     --nav-color: hsl(var(--hue-color), 60%, 99%);
   }
@@ -118,6 +118,10 @@
 
   .button {
     @apply text-main-color-100 bg-main-color-500 py-5 px-7 rounded-lg hover:bg-main-color-700;
+  }
+
+  .foreground {
+    @apply fixed top-0 left-0 w-full h-full z-[49] bg-black bg-opacity-40;
   }
 
   /* nav */

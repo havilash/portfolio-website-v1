@@ -13,8 +13,6 @@ export default function Home() {
               Veniam cillum nostrud reprehenderit exercitation occaecat aliquip dolor cillum. Dolor ex nulla laboris ipsum et. Ex anim ad dolore id culpa aliqua consectetur. Labore proident sunt sunt amet. Labore duis velit quis est tempor minim mollit pariatur tempor aliqua esse sint ullamco. Eu eu fugiat id tempor dolore ad nulla sit.
             </p>
           </div>
-
-          <img src="img.img" alt="" height="" width="" />
         </div>
     </div>
   )

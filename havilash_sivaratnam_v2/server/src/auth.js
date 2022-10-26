@@ -7,6 +7,9 @@ const cors = require('cors')
 
 const database = require('./database/database');
 
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
+const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET
+
 const accessTokenExpirationTime = '300s'                // JWT Syntax
 const refreshTokenExpirationTime = 'INTERVAL 7 DAY'     // SQL Syntax
 const apiPath = '/auth';
@@ -41,7 +44,7 @@ function generatePayload(user){
 }
 
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: accessTokenExpirationTime })
+    return jwt.sign(user, accessTokenSecret, { expiresIn: accessTokenExpirationTime })
 }
 
 function authenticateToken(req, res, next) {
@@ -49,7 +52,7 @@ function authenticateToken(req, res, next) {
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) return res.send(401).json({message: "Unauthorized"})
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, accessTokenSecret, (err, user) => {
         if (err) return res.send(403).json({message: "Forbidden"});
         req.user = user;
         next();
@@ -108,7 +111,7 @@ router.post('/login', (req, res) => {
                 // JWT
                 payload = generatePayload(user);
                 const accessToken = generateAccessToken(payload);
-                const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET);
+                const refreshToken = jwt.sign(payload, refreshTokenSecret);
                 insertRefreshToken(refreshToken);
                 // refreshTokens.push(refreshToken);
                 res.status(202).json({
@@ -150,7 +153,7 @@ router.post('/token', (req, res) => {
         if (err) return res.status(500).json({ message: "Internal Server Error", ...err });
         if (result.length == 0) return res.send(403).json({message: "Forbidden"});
         
-        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        jwt.verify(refreshToken, refreshTokenSecret, (err, user) => {
             if (err) return res.send(403).json({message: "Forbidden"});
             const accessToken = generateAccessToken(generatePayload(user));
             res.json({ accessToken: accessToken });

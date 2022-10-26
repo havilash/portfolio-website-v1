@@ -13,7 +13,7 @@ export function readForm(form) {
 }
 
 async function newAccessToken(){
-    const rawResponse = await fetch('http://localhost:5000/api/auth/token', {
+    const rawResponse = await fetch('/api/auth/token', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react'
 import { FaSignInAlt, FaBars, FaTimes, FaHome, FaUser, FaWrench, FaBriefcase, FaFileAlt, FaPhoneAlt, FaGithub, FaLinkedin, FaFacebook, FaMoon, FaSun } from 'react-icons/fa';
 
-export default function Nav() {
+export default function Nav({ foreground }) {
 
     const [theme, setTheme] = useState(null)
     const [isNavOpen, setIsNavOpen] = useState(false)
@@ -17,10 +17,12 @@ export default function Nav() {
 
     useEffect(() => {
         loadTheme();
+        console.log(foreground)
     }, [theme])
 
     useEffect(() => {
         isNavOpen ? asideRef.current.classList.add("left-0") : asideRef.current.classList.remove("left-0");
+        // isNavOpen ? foreground.classList.add("hidden") : foreground.classList.remove("hidden");
     }, [isNavOpen])
 
     function changeTheme(theme){
