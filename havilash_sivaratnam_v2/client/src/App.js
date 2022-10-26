@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import Nav from './Nav.js';
+import Nav from './components/Nav.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from '../pages/Home.js';
-import AboutMe from '../pages/AboutMe.js';
-import SignUp from '../pages/SignUp.js';
-import Login from '../pages/Login.js';
+import Home from './pages/Home.js';
+import AboutMe from './pages/AboutMe.js';
+import SignUp from './pages/SignUp.js';
+import Login from './pages/Login.js';
 
 function App() {
   var foregroundRef = useRef(null);

@@ -17,9 +17,7 @@ export default function Nav({ foregroundRef }) {
 
     useEffect(() => {
         foregroundRef.current.onclick = () => {
-            console.log("1nav: ", isNavOpen)
-            navOpenClose();
-            console.log("nav: ", isNavOpen)
+            setIsNavOpen(false);
         };
     }, [])
 
@@ -81,11 +79,11 @@ export default function Nav({ foregroundRef }) {
         if (isNavOpen)
             return <FaTimes onClick={() => navOpenClose()} 
             className="nav__icon absolute left-nav-width sm:left-0 m-10 z-[45] 
-            transition-all" />
+            transition-all text-3xl" />
         else
             return <FaBars onClick={() => navOpenClose()} 
             className="nav__icon absolute left-nav-width sm:left-0 m-10 z-[45] 
-            transition-all" />
+            transition-all text-3xl" />
     }
 
     return (
@@ -135,10 +133,10 @@ export default function Nav({ foregroundRef }) {
                     <div className="nav__buttons
                     p-4 h-auto flex flex-col justify-between gap-6">
                         <div className="nav__social
-                        h-auto grid gap-1">
-                            <a href="#github" className="nav__social__link" target="_blank"><FaGithub className="nav__social__icon nav__icon" /></a>
-                            <a href="#linkedin" className="nav__social__link" target="_blank"><FaLinkedin className="nav__social__icon nav__icon" /></a>
-                            <a href="#facebook" className="nav__social__link" target="_blank"><FaFacebook className="nav__social__icon nav__icon" /></a>
+                        h-auto hidden sm:block grid items-center">
+                            <a href="#github" className="nav__social__link nav__link" target="_blank"><FaGithub className="nav__social__icon nav__icon" /></a>
+                            <a href="#linkedin" className="nav__social__link nav__link" target="_blank"><FaLinkedin className="nav__social__icon nav__icon" /></a>
+                            <a href="#facebook" className="nav__social__link nav__link" target="_blank"><FaFacebook className="nav__social__icon nav__icon" /></a>
                         </div>
                         <i ref={navMoonRef} className=""> <FaMoon onClick={() => changeTheme('dark')} className="nav__theme-button nav__icon" id="nav__theme-button" /> </i>
                         <i ref={navSunRef} className="hidden"> <FaSun onClick={() => changeTheme('light')} className="nav__theme-button nav__icon" id="nav__theme-button" /> </i>

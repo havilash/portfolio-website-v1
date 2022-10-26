@@ -113,7 +113,7 @@
   }
 
   .container {
-    @apply max-w-3xl w-full h-full mx-6;
+    @apply max-w-4xl w-full h-full mx-6;
   }
 
   .button {
@@ -130,7 +130,11 @@
   }
 
   .nav__social__icon {
-    @apply text-xl;
+    @apply text-xl m-[2px];
+  }
+
+  .nav__link {
+    @apply flex justify-center items-center;
   }
 
   .nav__item {
