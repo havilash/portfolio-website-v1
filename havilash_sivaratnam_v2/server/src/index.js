@@ -1,18 +1,25 @@
 const express = require('express')
-const database = require('./database/database');
+const path = require('path');
+const auth = require('./auth');
 
-const port = 3000;
-
+const apiPath = '/api';
+const port = process.env.PORT || 5000;
 const app = express();
-const conn = database.conn;
 
-app.get('/users', (req, res) => {
-    conn.query("SELECT * FROM users", function(err, result){
-        if (err) throw err;
-        res.send(result);
-    })
+app.use(apiPath + auth.path, auth.router)
+app.use(express.static(path.join(__dirname, "../public")));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.get("*", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../public/index.html")
+  );
+});
+
+
 app.listen(port, () => {
-    console.log(`[CONNECTED] server listening to port ${port}`);
+    console.log(`[CONNECTED] Server listening to port ${port}`);
 });

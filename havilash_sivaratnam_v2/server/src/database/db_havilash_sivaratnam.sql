@@ -7,10 +7,21 @@ CREATE DATABASE IF NOT EXISTS db_havilash_sivaratnam;
 
 USE db_havilash_sivaratnam;
 
+-- AUTH
+
+CREATE TABLE auth(
+	id INT NOT NULL UNIQUE AUTO_INCREMENT,
+    refresh_token VARCHAR(255) NOT NULL,
+    valid_until timestamp NOT NULL
+);
+
+-- USERS
+
 CREATE TABLE users(
 	id int NOT NULL UNIQUE AUTO_INCREMENT,
 	username VARCHAR(255) NOT NULL UNIQUE,
-	password VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+	password VARCHAR(255) NOT NULL,
     
     PRIMARY KEY (id)
 );
