@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom';
 import { readForm, authFetch } from '../functions'
 
 
@@ -55,7 +56,7 @@ export default function Login() {
   return (
     <div className='container flex justify-center items-center'>
 
-      <form ref={formRef} onSubmit={handleSubmit} action='javascript:void(0);' className='min-w-[50%] p-8 shadow-xl'>
+      <form ref={formRef} onSubmit={handleSubmit} action='javascript:void(0);' className='form'>
         
         {renderMessage()}
         
@@ -70,7 +71,7 @@ export default function Login() {
         <div className="mt-5 flex items-baseline justify-between">
           <input type='submit' value='Log In'
           className="cursor-pointer px-6 py-2 mt-2 text-white bg-main-color-500 rounded-lg hover:bg-main-color-900" />
-          <a href="/signup" className="text-sm text-main-color-500 hover:underline">Sign Up</a>
+          <Link to="/signup" className="text-sm text-main-color-500 hover:underline">Sign Up</Link>
         </div>
       </form>
 

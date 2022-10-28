@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
 import { FaSignInAlt, FaBars, FaTimes, FaHome, FaUser, FaWrench, FaBriefcase, FaFileAlt, FaPhoneAlt, FaGithub, FaLinkedin, FaFacebook, FaMoon, FaSun } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 export default function Nav({ foregroundRef }) {
 
@@ -64,15 +65,15 @@ export default function Nav({ foregroundRef }) {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
             localStorage.removeItem("user");
-            window.location.href = "/login";
+            // window.location.href = "/login";
         }    
     }
 
     function renderLogo() {
         if (localStorage.user == undefined) 
-            return <a href="/login" title="Login" className="nav__logo nav__icon p-3 m-4 text-white button"><FaSignInAlt /></a>;   // <MdOutlineLogin /> 
+            return <Link to="/login" title="Login" className="nav__logo nav__icon p-3 m-4 text-white button hover:text-white"><FaSignInAlt /></Link>;   // <MdOutlineLogin /> 
         else
-            return <a onClick={handleLogout} href="#logout" title="Logout" className="nav__logo nav__icon p-3 m-4">{JSON.parse(localStorage.user)?.username?.charAt(0).toUpperCase()}</a>
+            return <Link onClick={handleLogout} to="/login" title="Logout" className="nav__logo nav__icon p-3 m-4">{JSON.parse(localStorage.user)?.username?.charAt(0).toUpperCase()}</Link>
     }
 
     function renderOpenCloseIcon() {
@@ -100,43 +101,43 @@ export default function Nav({ foregroundRef }) {
                     <ul className="nav__list
                     gap-1">
                         <li className="nav__item">
-                            <a href="/" className="nav__link nav__icon" title="Home">
+                            <Link to="/" className="nav__link nav__icon" title="Home">
                                 <FaHome className="nav__icon" />
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav__item">
-                            <a href="/aboutme" className="nav__link" title="About Me">
+                            <Link to="/aboutme" className="nav__link" title="About Me">
                                 <FaUser className="nav__icon" />
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav__item">
-                            <a href="#skills" className="nav__link" title="Skills">
+                            <Link to="/skills" className="nav__link" title="Skills">
                                 <FaWrench className="nav__icon" />
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav__item">
-                            <a href="#services" className="nav__link" title="Services">
+                            <Link to="/projects" className="nav__link" title="Projects">
                                 <FaBriefcase className="nav__icon" />
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav__item">
-                            <a href="#portfolio" className="nav__link" title="Portfolio">
+                            <Link to="/portfolio" className="nav__link" title="Portfolio">
                                 <FaFileAlt className="nav__icon" />
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav__item">
-                            <a href="#contact" className="nav__link" title="Contact">
+                            <Link to="/contact" className="nav__link" title="Contact">
                                 <FaPhoneAlt className="nav__icon" />
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                     <div className="nav__buttons
                     p-4 h-auto flex flex-col justify-between gap-6">
                         <div className="nav__social
-                        h-auto hidden sm:block grid items-center">
-                            <a href="#github" className="nav__social__link nav__link" target="_blank"><FaGithub className="nav__social__icon nav__icon" /></a>
-                            <a href="#linkedin" className="nav__social__link nav__link" target="_blank"><FaLinkedin className="nav__social__icon nav__icon" /></a>
-                            <a href="#facebook" className="nav__social__link nav__link" target="_blank"><FaFacebook className="nav__social__icon nav__icon" /></a>
+                        h-auto hidden lg:block grid items-center">
+                            <a href="https://github.com/" className="nav__social__link nav__link" target="_blank"><FaGithub className="nav__social__icon nav__icon" /></a>
+                            <a href="https://linkedin.com" className="nav__social__link nav__link" target="_blank"><FaLinkedin className="nav__social__icon nav__icon" /></a>
+                            <a href="https://facebook.com" className="nav__social__link nav__link" target="_blank"><FaFacebook className="nav__social__icon nav__icon" /></a>
                         </div>
                         <i ref={navMoonRef} className=""> <FaMoon onClick={() => changeTheme('dark')} className="nav__theme-button nav__icon" id="nav__theme-button" /> </i>
                         <i ref={navSunRef} className="hidden"> <FaSun onClick={() => changeTheme('light')} className="nav__theme-button nav__icon" id="nav__theme-button" /> </i>
