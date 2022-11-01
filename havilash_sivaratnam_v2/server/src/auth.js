@@ -88,7 +88,7 @@ router.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const sql = `INSERT INTO users (username, email, password) VALUES ('${req.body.username}', '${req.body.email}', '${hashedPassword}')`;
     conn.query(sql, (err, result) => {
-        if (err?.code == "ER_DUP_ENTRY") return res.status(400).json({ message: "Username/E-Mail already exists", ...err });
+        if (err?.code == "23505") return res.status(400).json({ message: "Username/E-Mail already exists", ...err });
         if (err) return res.status(500).json({ message: "Internal Server Error", ...err });
         return res.status(201).json({message: "User created"});
     });
