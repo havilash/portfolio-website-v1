@@ -44,6 +44,7 @@ module.exports.conn = client;
 // const dbServer = {
 //     host: "172.29.4.61",
 //     port: 3306,
+
 //     user: "db_001396",
 //     password: "CZXJtTxFcnAZ",
 //     database: "inf_293_21g_m293user17"
@@ -55,6 +56,7 @@ module.exports.conn = client;
 //     password: "SCEpmsU8DZeu",
 //     privateKey: require('fs').readFileSync(path.resolve(__dirname, "../../id_rsa"))
 // }
+
 // const forwardConfig = {
 //     srcHost: '127.0.0.1',
 //     srcPort: 3306,
@@ -87,3 +89,4 @@ module.exports.conn = client;
 
 
 // module.exports.conn = SSHConnection;
+
