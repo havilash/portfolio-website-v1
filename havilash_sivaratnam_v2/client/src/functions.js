@@ -37,3 +37,20 @@ export async function authFetch(url, options){
 
     return rawResponse;
 }
+
+export async function logout(){
+    if (localStorage.refreshToken != undefined){        
+        const rawResponse = await fetch('/api/auth/logout', {
+            method: 'DELETE',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: localStorage.refreshToken })
+        });
+    }
+
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
+}

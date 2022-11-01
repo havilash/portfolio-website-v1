@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-export default function SkillsLine({ name, percent }) {
+export default function Skill({ name, percent }) {
 
   return (
     <div className='mt-6 w-full'>

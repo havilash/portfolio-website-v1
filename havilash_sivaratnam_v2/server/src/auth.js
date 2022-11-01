@@ -11,7 +11,7 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET
 
 const accessTokenExpirationTime = '300s'                // JWT Syntax
-const refreshTokenExpirationTime = 'INTERVAL 7 DAY'     // SQL Syntax
+const refreshTokenExpirationTime = "INTERVAL '7 DAY'"     // PostgresSQL Syntax
 const apiPath = '/auth';
 
 const router = express.Router();
@@ -24,7 +24,7 @@ function insertRefreshToken(token) {
     const sql = `INSERT INTO auth (refresh_token, valid_until) VALUES ('${token}', NOW() + ${refreshTokenExpirationTime})`;
     conn.query(sql, (err, result) => {
         if (err) throw err;
-        return result;
+        return result.rows;
     });
 }
 
@@ -32,7 +32,7 @@ function deleteOldRefreshTokens() {
     const sql = `DELETE FROM auth a WHERE a.valid_until < NOW();`;
     conn.query(sql, (err, result) => {
         if (err) throw err;
-        return result;
+        return result.rows;
     });
 }
 
@@ -60,24 +60,24 @@ function authenticateToken(req, res, next) {
 }
 
 router.get('/test', (req, res) => {
-    conn.query("SELECT * FROM userss", (err, result) => {
+    conn.query("SELECT * FROM users", (err, result) => {
         if (err) return res.status(500).json({ message: "Internal Server Error", ...err });
-        res.json(result);
+        res.json(result.rows);
     });
 });
 
 router.get('/user', authenticateToken, (req, res) => {
     conn.query(`SELECT * FROM users u WHERE u.id = '${req.user.id}'`, (err, result) => {
         if (err) return res.status(500).json({ message: "Internal Server Error", ...err });
-        if (result.length == 0) return res.status(404).json({message: 'User not found'});
-        res.json(result[0]);
+        if (result.rows.length == 0) return res.status(404).json({message: 'User not found'});
+        res.json(result.rows[0]);
     });
 });
 
 router.get('/users', authenticateToken, (req, res) => {
     conn.query("SELECT * FROM users", (err, result) => {
         if (err) return res.status(500).json({ message: "Internal Server Error", ...err });
-        res.json(result);
+        res.json(result.rows);
     });
 });
 
@@ -98,12 +98,12 @@ router.post('/login', (req, res) => {
     if (typeof req.body.username === 'undefined' || typeof req.body.password === 'undefined') 
         return res.status(409).json({message: "Username/password not set"});
 
-    conn.query(`SELECT * FROM users u WHERE u.username = '${req.body.username}' OR u.email = '${req.body.email}'`, async (err, result) => {
-        if (err) res.status(500).json({ message: "Internal Server Error", ...err });
+    conn.query(`SELECT * FROM users AS u WHERE u.username = '${req.body.username}' OR u.email = '${req.body.username}'`, async (err, result) => {
+        if (err) res.status(500).json({ message: "Internal Server Error", ...err});
         
-        if (result.length == 0)
+        if (result.rows.length == 0)
             return res.status(404).json({message:'Username wrong'});
-        var user = result[0];
+        var user = result.rows[0];
 
         try {
             if (await bcrypt.compare(req.body.password, user.password)){

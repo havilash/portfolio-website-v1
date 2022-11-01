@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useReducer, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { readForm, authFetch } from '../functions'
 
 
 export default function Login() {
+  const [ignore, forceUpdate] = useReducer(x => x + 1, 0);
   
+  const navigate = useNavigate();
+
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   
@@ -38,9 +41,8 @@ export default function Login() {
       });
 
       const userResponse = await userRawResponse.json()
-      console.log(userResponse)
       localStorage.user = JSON.stringify({ id: userResponse.id, username: userResponse.username });
-      window.location.href = "/";
+      navigate("/");
     }
     else {  
       setSuccess(null);

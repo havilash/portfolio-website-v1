@@ -26,6 +26,7 @@ module.exports = {
           '900': 'var(--main-color-900)',
         },
         'text-color': {
+          '100': 'var(--text-color-100)',
           '300': 'var(--text-color-300)',
           '500': 'var(--text-color-500)',
           '700': 'var(--text-color-700)',

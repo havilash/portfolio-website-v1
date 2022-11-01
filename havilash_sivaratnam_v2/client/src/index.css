@@ -15,6 +15,7 @@
     --main-color-700: hsl(var(--hue-color), 57%, 53%);
     --main-color-900: hsl(var(--hue-color), 47%, 43%);
 
+    --text-color-100: hsl(var(--hue-color), 8%, 25%);
     --text-color-300: hsl(var(--hue-color), 8%, 45%);
     --text-color-500: hsl(var(--hue-color), 8%, 65%);
     --text-color-700: hsl(var(--hue-color), 8%, 75%);

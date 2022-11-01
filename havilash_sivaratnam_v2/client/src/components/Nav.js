@@ -1,8 +1,15 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef, useEffect, useReducer} from 'react'
 import { FaSignInAlt, FaBars, FaTimes, FaHome, FaUser, FaWrench, FaBriefcase, FaFileAlt, FaPhoneAlt, FaGithub, FaLinkedin, FaFacebook, FaMoon, FaSun } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { logout } from '../functions';
+import { useNavigate, useLocation } from 'react-router-dom'
+
+
 
 export default function Nav({ foregroundRef }) {
+    const [ignore, forceUpdate] = useReducer(x => x + 1, 0);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const [theme, setTheme] = useState(null)
     const [isNavOpen, setIsNavOpen] = useState(false)
@@ -15,6 +22,10 @@ export default function Nav({ foregroundRef }) {
     function navOpenClose(){
         setIsNavOpen(!isNavOpen);
     }
+
+    useEffect(() => {
+        forceUpdate()
+    }, [location])
 
     useEffect(() => {
         foregroundRef.current.onclick = () => {
@@ -52,28 +63,19 @@ export default function Nav({ foregroundRef }) {
     }
 
     async function handleLogout() {
-        const rawResponse = await fetch('/api/auth/logout', {
-            method: 'DELETE',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ token: localStorage.refreshToken })
-        });
-
-        if (rawResponse.ok){
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
-            localStorage.removeItem("user");
-            // window.location.href = "/login";
-        }    
+        await logout()
+        navigate("/login")
     }
 
     function renderLogo() {
         if (localStorage.user == undefined) 
-            return <Link to="/login" title="Login" className="nav__logo nav__icon p-3 m-4 text-white button hover:text-white"><FaSignInAlt /></Link>;   // <MdOutlineLogin /> 
-        else
-            return <Link onClick={handleLogout} to="/login" title="Logout" className="nav__logo nav__icon p-3 m-4">{JSON.parse(localStorage.user)?.username?.charAt(0).toUpperCase()}</Link>
+            return <Link to="/login" title="Login" className="nav__logo nav__icon p-3 m-4 text-white button hover:text-white"><FaSignInAlt /></Link>;
+        try {
+            return <Link onClick={handleLogout} to="#login" title="Logout" className="nav__logo nav__icon p-3 m-4">{JSON.parse(localStorage.user)?.username?.charAt(0).toUpperCase()}</Link>
+        } catch {
+            logout()
+            forceUpdate()
+        }
     }
 
     function renderOpenCloseIcon() {
@@ -85,6 +87,12 @@ export default function Nav({ foregroundRef }) {
             return <FaBars onClick={() => navOpenClose()} 
             className="nav__icon absolute left-nav-width sm:left-0 m-10 z-[45] 
             transition-all text-3xl" />
+    }
+
+    function renderPortfolioIcon() {
+        if (localStorage.user == undefined)
+            return <FaFileAlt className="nav__icon text-text-color-700 hover:text-text-color-700 dark:text-text-color-100 dark:hover:text-text-color-100 cursor-default" />
+        return <FaFileAlt className="nav__icon" />
     }
 
     return (
@@ -122,7 +130,7 @@ export default function Nav({ foregroundRef }) {
                         </li>
                         <li className="nav__item">
                             <Link to="/portfolio" className="nav__link" title="Portfolio">
-                                <FaFileAlt className="nav__icon" />
+                                {renderPortfolioIcon()}
                             </Link>
                         </li>
                         <li className="nav__item">

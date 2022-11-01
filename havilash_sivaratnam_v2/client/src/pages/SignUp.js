@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { readForm } from '../functions'
 
 
 export default function SignUp() {
+  const navigate = useNavigate();
   
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -27,7 +28,7 @@ export default function SignUp() {
     if (rawResponse.ok) {  
       setError(null);
       setSuccess(response.message);
-      window.location.href = "login";
+      navigate("/login");
     }
     else {  
       setSuccess(null);
