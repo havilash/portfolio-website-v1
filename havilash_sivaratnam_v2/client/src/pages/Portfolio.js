@@ -39,10 +39,10 @@ export default function Portfolio() {
       <Block title="Portfolio" defaultOpenCloseState={true} openCloseAble={true}
       className="flex flex-col justify-center items-center">
         <div className='flex flex-col'>
-          <a className='button text-xl mt-4 text-center' href='../media/cv.docx' download="">
+          <a className='button text-xl mt-4 text-center' href='../media/cv.pdf' download="">
             Download CV&emsp;<FaDownload className='inline-block'/>
           </a>
-          <a className='button text-xl mt-4 text-center' href='../media/cv.docx' download="">
+          <a className='button text-xl mt-4 text-center' href='../media/reportcard.pdf' download="">
             Download Report Card&emsp;<FaDownload className='inline-block'/>
           </a>
         </div>

@@ -51,12 +51,10 @@ export default function Nav({ foregroundRef }) {
     function loadTheme(){
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
-            
             navMoonRef.current.classList.add("hidden");
             navSunRef.current.classList.remove("hidden");
           } else {
             document.documentElement.classList.remove('dark');
-
             navMoonRef.current.classList.remove("hidden");
             navSunRef.current.classList.add("hidden");
           }
