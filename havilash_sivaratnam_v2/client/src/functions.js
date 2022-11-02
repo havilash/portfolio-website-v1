@@ -1,4 +1,4 @@
-
+import packageData from '../package.json'
 
 export function readForm(form) {
     var elements = form.elements;
@@ -13,7 +13,7 @@ export function readForm(form) {
 }
 
 async function newAccessToken(){
-    const rawResponse = await fetch('/api/auth/token', {
+    const rawResponse = await fetch(packageData.proxy + '/api/auth/token', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -33,6 +33,11 @@ export async function authFetch(url, options){
         localStorage.accessToken = newAccessToken();
         options.headers.authorization = localStorage.accessToken;
         const rawResponse = await fetch(url, options);
+        if (rawResponse.status == 403) {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            localStorage.removeItem("user");
+        }
     }
 
     return rawResponse;
@@ -40,7 +45,7 @@ export async function authFetch(url, options){
 
 export async function logout(){
     if (localStorage.refreshToken != undefined){        
-        const rawResponse = await fetch('/api/auth/logout', {
+        const rawResponse = await fetch(packageData.proxy + '/api/auth/logout', {
             method: 'DELETE',
             headers: {
             'Accept': 'application/json',

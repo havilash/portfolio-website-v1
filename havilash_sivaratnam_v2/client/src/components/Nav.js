@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect, useReducer} from 'react'
-import { FaSignInAlt, FaBars, FaTimes, FaHome, FaUser, FaWrench, FaBriefcase, FaFileAlt, FaPhoneAlt, FaGithub, FaLinkedin, FaFacebook, FaMoon, FaSun } from 'react-icons/fa';
+import { FaSignInAlt, FaBars, FaTimes, FaHome, FaUser, FaWrench, FaBriefcase, FaFileAlt, FaPhoneAlt, FaGithub, FaLinkedin, FaFacebook, FaMoon, FaSun, FaFileContract } from 'react-icons/fa';
 import { Link, Navigate } from 'react-router-dom';
 import { logout } from '../functions';
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -147,6 +147,9 @@ export default function Nav({ foregroundRef }) {
                             <a href="https://linkedin.com" className="nav__social__link nav__link" target="_blank"><FaLinkedin className="nav__social__icon nav__icon" /></a>
                             <a href="https://facebook.com" className="nav__social__link nav__link" target="_blank"><FaFacebook className="nav__social__icon nav__icon" /></a>
                         </div>
+                        <Link to="/impressum" className="nav__link" title="Impressum">
+                                <FaFileContract className="nav__icon text-2xl sm:text-xl" />
+                        </Link>
                         <i ref={navMoonRef} className=""> <FaMoon onClick={() => changeTheme('dark')} className="nav__theme-button nav__icon" id="nav__theme-button" /> </i>
                         <i ref={navSunRef} className="hidden"> <FaSun onClick={() => changeTheme('light')} className="nav__theme-button nav__icon" id="nav__theme-button" /> </i>
                     </div>

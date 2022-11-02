@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { readForm } from '../functions'
+import packageData from '../../package.json'
 
 
 export default function SignUp() {
@@ -14,7 +15,7 @@ export default function SignUp() {
   async function handleSubmit(){
     const formData = readForm(formRef.current);
 
-    const rawResponse = await fetch('http://localhost:5000/api/auth/signup', {
+    const rawResponse = await fetch(packageData.proxy + '/api/auth/signup', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

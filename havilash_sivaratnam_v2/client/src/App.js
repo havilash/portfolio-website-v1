@@ -9,6 +9,7 @@ import Projects from './pages/Projects.js';
 import Contact from './pages/Contact.js';
 import Portfolio from './pages/Portfolio.js';
 import Skills from './pages/Skills.js';
+import Impressum from './pages/Impressum.js';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/projects" element={<Projects/>} />
             <Route exact path="/portfolio" element={<Portfolio/>} />
             <Route exact path="/contact" element={<Contact/>} />
+            <Route exact path="/impressum" element={<Impressum/>} />
           </Routes>
         </section>
       </div>

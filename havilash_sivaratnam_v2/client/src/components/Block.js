@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaAngleUp } from 'react-icons/fa'
 
-export default function Block({children, className, title, openClose=false, allwaysOpen=false}) {
-  const [isOpen, setIsOpen] = useState(openClose);
+export default function Block({children, className, title, defaultOpenCloseState=false, openCloseAble=false}) {
+  const [isOpen, setIsOpen] = useState(defaultOpenCloseState);
   const openCloseIconRef = useRef(null);
   const contentDivRef = useRef(null);
 
@@ -12,17 +12,17 @@ export default function Block({children, className, title, openClose=false, allw
   }, [isOpen])
 
   function handleClick() {
-    if (!allwaysOpen)
+    if (!openCloseAble)
       setIsOpen(!isOpen);
   }
 
   function renderOpenCloseIcon() {
-    if (!allwaysOpen)
+    if (!openCloseAble)
       return <FaAngleUp className='cursor-pointer hover:text-main-color-300' />
   }
         
   return (
-    <div className={"shadow-lg rounded-lg " + className}>
+    <div className={"shadow-lg rounded-lg dark:shadow-xl " + className}>
       <div className='w-full h-16 p-4 shadow-md flex items-center justify-between select-none' onClick={handleClick}>
         <h1>{title}</h1>
         <h1 ref={openCloseIconRef} className='transition-all duration-100'>

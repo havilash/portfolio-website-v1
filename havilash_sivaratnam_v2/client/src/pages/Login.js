@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { readForm, authFetch } from '../functions'
+import packageData from '../../package.json'
 
 
 export default function Login() {
@@ -16,7 +17,7 @@ export default function Login() {
   async function handleSubmit(){
     const formData = readForm(formRef.current);
 
-    const rawResponse = await fetch('/api/auth/login', {
+    const rawResponse = await fetch(packageData.proxy + '/api/auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -32,7 +33,7 @@ export default function Login() {
       setSuccess(response.message);
       localStorage.accessToken = response.accessToken;
       localStorage.refreshToken = response.refreshToken;
-      const userRawResponse = await authFetch('/api/auth/user', {
+      const userRawResponse = await authFetch(packageData.proxy + '/api/auth/user', {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
