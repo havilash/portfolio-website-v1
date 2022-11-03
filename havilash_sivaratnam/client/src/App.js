@@ -10,6 +10,7 @@ import Contact from './pages/Contact.js';
 import Portfolio from './pages/Portfolio.js';
 import Skills from './pages/Skills.js';
 import Impressum from './pages/Impressum.js';
+import ColorPalette from './components/ColorPalette.js';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route exact path="/impressum" element={<Impressum/>} />
           </Routes>
         </section>
+        <ColorPalette />
       </div>
    </BrowserRouter>
   );
