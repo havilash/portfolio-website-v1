@@ -6,6 +6,7 @@ import '../index.css'
 export default function ColorPalette({ className }) {
 
     const [isOpen, setIsOpen] = useState(false)
+
     const colorPalleteRef = useRef(null)
     const openCloseIconRef = useRef(null)
     
@@ -21,6 +22,7 @@ export default function ColorPalette({ className }) {
 
   return (
     <div ref={colorPalleteRef} className={'fixed flex flex-row top-12 right-0 transition-all z-50 ' + className}>
+
         <div className='colors rounded-l-md w-10 h-fit mt-8'>
             <div ref={openCloseIconRef} className='w-full h-full transition-all rotate-180'> 
                 <FaAngleLeft className='cursor-pointer text-4xl hover:text-main-color-300' onClick={() => setIsOpen(!isOpen)}/>
@@ -44,5 +46,3 @@ export default function ColorPalette({ className }) {
     </div>
   )
 }
-
-  
