@@ -20,7 +20,7 @@ export default function ColorPalette({ className }) {
     }
 
   return (
-    <div ref={colorPalleteRef} className={'fixed flex flex-row top-12 right-0 transition-all ' + className}>
+    <div ref={colorPalleteRef} className={'fixed flex flex-row top-12 right-0 transition-all z-50 ' + className}>
         <div className='colors rounded-l-md w-10 h-fit mt-8'>
             <div ref={openCloseIconRef} className='w-full h-full transition-all rotate-180'> 
                 <FaAngleLeft className='cursor-pointer text-4xl hover:text-main-color-300' onClick={() => setIsOpen(!isOpen)}/>
