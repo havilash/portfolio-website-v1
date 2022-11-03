@@ -22,9 +22,9 @@ export default function Portfolio() {
 
       if (!rawResponse.ok) {
         await logout()
-        navigate("/login")
+        navigate("/login");
       } else {
-        setIsAccessible(true)
+        setIsAccessible(true);
       }
     }
 
@@ -36,7 +36,7 @@ export default function Portfolio() {
       return;
 
     return (
-      <Block title="Portfolio" defaultOpenCloseState={true} openCloseAble={true}
+      <Block title="Portfolio" defaultOpenCloseState={true}
       className="flex flex-col justify-center items-center">
         <div className='flex flex-col'>
           <a className='button text-xl mt-4 text-center' href='../media/cv.pdf' download="">

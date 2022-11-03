@@ -68,7 +68,7 @@ router.get('/user', authenticateToken, (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
-    if (typeof req.body.username === 'undefined' || typeof req.body.password === 'undefined' || typeof req.body.email === 'undefined') 
+    if (req.body.username === undefined || req.body.password === undefined || req.body.email === undefined) 
         return res.status(409).json({message: "Username/E-Mail/password not set"});
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -81,7 +81,7 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    if (typeof req.body.username === 'undefined' || typeof req.body.password === 'undefined') 
+    if (req.body.username === undefined || req.body.password === undefined) 
         return res.status(409).json({message: "Username/password not set"});
 
     conn.query(`SELECT * FROM users AS u WHERE u.username = '${req.body.username}' OR u.email = '${req.body.username}'`, async (err, result) => {
@@ -104,7 +104,6 @@ router.post('/login', (req, res) => {
                     accessToken: accessToken,
                     refreshToken: refreshToken
                 });
-
             }
             else 
                 res.status(401).json({message:'Password wrong'});
@@ -115,7 +114,7 @@ router.post('/login', (req, res) => {
 });
 
 router.delete('/logout', (req, res) => {
-    if (typeof req.body.token === 'undefined') 
+    if (req.body.token === undefined) 
         return res.status(409).json({message:"token not set"});
 
     const sql = `DELETE FROM auth a WHERE a.refresh_token = '${req.body.token}'`;
@@ -128,7 +127,7 @@ router.delete('/logout', (req, res) => {
 router.post('/token', (req, res) => {
     deleteOldRefreshTokens();
 
-    if (typeof req.body.token === 'undefined') 
+    if (req.body.token === undefined) 
         return res.status(409).json({json: "token not set"});
 
     const refreshToken = req.body.token;

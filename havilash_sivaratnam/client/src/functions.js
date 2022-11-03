@@ -25,19 +25,15 @@ async function newAccessToken(){
     return rawResponse.json().accessToken
 }
 
+// authenticated fetch
 export async function authFetch(url, options){
     options.headers.authorization = "Bearer " + localStorage.accessToken;
-    const rawResponse = await fetch(url, options);
+    var rawResponse = await fetch(url, options);
 
     if (rawResponse.status == 403) {
         localStorage.accessToken = newAccessToken();
         options.headers.authorization = localStorage.accessToken;
-        const rawResponse = await fetch(url, options);
-        if (rawResponse.status == 403) {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
-            localStorage.removeItem("user");
-        }
+        rawResponse = await fetch(url, options);
     }
 
     return rawResponse;

@@ -9,7 +9,8 @@ export default function Skills() {
     justify-center content-start md:content-center items-center'>
         <Block className="w-full" 
         title="Frontend"
-        openClose={false}>
+        defaultOpenCloseState={false}
+        openCloseAble={true}>
           <Skill key='skill-1' name="HTML" percent="80" />
           <Skill key='skill-2' name="CSS" percent="80" />
           <Skill key='skill-3' name="JavaScript" percent="80" />
@@ -19,7 +20,8 @@ export default function Skills() {
 
         <Block className="w-full" 
         title="Backend"
-        openClose={false}> 
+        defaultOpenCloseState={false}
+        openCloseAble={true}>
           <Skill key='skill-1' name="Python" percent="80" />
           <Skill key='skill-2' name="Java" percent="80" />
           <Skill key='skill-3' name="Node.js" percent="80" />

@@ -5,8 +5,6 @@ import packageData from '../../package.json'
 
 
 export default function Login() {
-  const [ignore, forceUpdate] = useReducer(x => x + 1, 0);
-  
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -17,6 +15,7 @@ export default function Login() {
   async function handleSubmit(){
     const formData = readForm(formRef.current);
 
+    // login request
     const rawResponse = await fetch(packageData.proxy + '/api/auth/login', {
       method: 'POST',
       headers: {
@@ -36,6 +35,8 @@ export default function Login() {
       setSuccess(response.message);
       localStorage.accessToken = response.accessToken;
       localStorage.refreshToken = response.refreshToken;
+
+      // get user
       const userRawResponse = await authFetch(packageData.proxy + '/api/auth/user', {
         method: 'GET',
         headers: {

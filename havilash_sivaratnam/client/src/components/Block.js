@@ -12,12 +12,12 @@ export default function Block({children, className, title, defaultOpenCloseState
   }, [isOpen])
 
   function handleClick() {
-    if (!openCloseAble)
+    if (openCloseAble)
       setIsOpen(!isOpen);
   }
 
   function renderOpenCloseIcon() {
-    if (!openCloseAble)
+    if (openCloseAble)
       return <FaAngleUp className='cursor-pointer hover:text-main-color-300' />
   }
         

@@ -7,9 +7,9 @@ import { useNavigate, useLocation } from 'react-router-dom'
 
 
 export default function Nav({ foregroundRef }) {
-    const [ignore, forceUpdate] = useReducer(x => x + 1, 0);
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
     const navigate = useNavigate();
-    const location = useLocation();
+    const location = useLocation();  // = window.location
 
     const [theme, setTheme] = useState(null)
     const [isNavOpen, setIsNavOpen] = useState(false)
@@ -23,20 +23,24 @@ export default function Nav({ foregroundRef }) {
         setIsNavOpen(!isNavOpen);
     }
 
+    // force update on window.location change
     useEffect(() => {
         forceUpdate()
     }, [location])
 
+    // on start
     useEffect(() => {
         foregroundRef.current.onclick = () => {
             setIsNavOpen(false);
         };
     }, [])
 
+    // on theme change
     useEffect(() => {
         loadTheme();
     }, [theme])
 
+    // on nav open/close
     useEffect(() => {
         isNavOpen ? asideRef.current.classList.add("left-0") : asideRef.current.classList.remove("left-0");
         isNavOpen ? foregroundRef.current.classList.remove("hidden") : foregroundRef.current.classList.add("hidden");
