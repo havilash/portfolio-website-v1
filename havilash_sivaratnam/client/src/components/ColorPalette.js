@@ -9,6 +9,8 @@ export default function ColorPalette({ className }) {
 
     const colorPalleteRef = useRef(null)
     const openCloseIconRef = useRef(null)
+
+    const [color, setColor] = useState(localStorage.color || document.documentElement.style.getPropertyValue('--hue-color'))
     
 
     useEffect(() => {
@@ -16,8 +18,15 @@ export default function ColorPalette({ className }) {
         isOpen ? openCloseIconRef.current.classList.add("rotate-180") : openCloseIconRef.current.classList.remove("rotate-180");
     }, [isOpen])
 
-    function changeColor(color){
+
+    useEffect(() => {
         document.documentElement.style.setProperty('--hue-color', color)
+    }, [color])
+
+
+    function changeColor(color){
+        localStorage.color = color
+        setColor(color)
     }
 
   return (
