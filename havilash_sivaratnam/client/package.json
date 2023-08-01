@@ -1,7 +1,7 @@
 {
   "name": "havilash_sivaratnam",
   "version": "0.1.0",
-  "proxy": "https://portfolio-website-backend.onrender.com",
+  "proxy": "http://localhost:5000",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
